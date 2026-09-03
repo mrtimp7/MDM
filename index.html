@@ -12,7 +12,7 @@
     :root {
       --bg-dark: #07090e;
       --bg-surface: #0e131f;
-      --bg-card: rgba(16, 22, 36, 0.75);
+      --bg-card: rgba(16, 22, 36, 0.85);
       --border-color: rgba(255, 255, 255, 0.08);
       --border-focus: rgba(0, 210, 255, 0.5);
       --primary: #00d2ff;
@@ -38,20 +38,19 @@
       overflow-x: hidden;
       line-height: 1.6;
       background-image: 
-        radial-gradient(circle at 15% 10%, rgba(0, 210, 255, 0.07) 0%, transparent 45%),
+        radial-gradient(circle at 15% 10%, rgba(0, 210, 255, 0.08) 0%, transparent 45%),
         radial-gradient(circle at 85% 60%, rgba(157, 78, 221, 0.08) 0%, transparent 50%),
         radial-gradient(circle at 50% 90%, rgba(0, 255, 135, 0.05) 0%, transparent 40%);
       background-attachment: fixed;
     }
 
-    /* Arka Plan Izgarası */
     .bg-grid {
       position: fixed;
       inset: 0;
       background-size: 40px 40px;
       background-image: 
-        linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+        linear-gradient(to right, rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
       pointer-events: none;
       z-index: 0;
     }
@@ -64,16 +63,20 @@
       z-index: 1;
     }
 
-    /* Scroll Reveal Efekti (Aşağı İndikçe Yüklenen Elemanlar) */
+    /* GÜVENLİ GÖRÜNÜRLÜK (Sayfa Asla Görünmez Kalmaz) */
     .reveal {
-      opacity: 0;
-      transform: translateY(35px);
-      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
-                  transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-      will-change: opacity, transform;
+      opacity: 1;
+      transform: none;
+      transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    .reveal.active {
+    /* Sadece JS sorunsuz başladığında animasyon hazırlığı yapar */
+    body.js-ready .reveal {
+      opacity: 0;
+      transform: translateY(25px);
+    }
+
+    body.js-ready .reveal.active {
       opacity: 1;
       transform: translateY(0);
     }
@@ -87,7 +90,7 @@
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--border-color);
-      background: rgba(7, 9, 14, 0.8);
+      background: rgba(7, 9, 14, 0.85);
     }
 
     nav {
@@ -150,6 +153,20 @@
       font-weight: 600;
     }
 
+    .pulse-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--neon-green);
+      box-shadow: 0 0 8px var(--neon-green);
+      animation: pulse 1.8s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.4); opacity: 0.5; }
+    }
+
     /* Butonlar */
     .btn {
       display: inline-flex;
@@ -189,12 +206,12 @@
       border-color: rgba(255, 255, 255, 0.2);
     }
 
-    /* Hero Bölümü */
+    /* Hero */
     .hero {
       min-height: 100vh;
       display: flex;
       align-items: center;
-      padding-top: 100px;
+      padding-top: 110px;
       padding-bottom: 60px;
     }
 
@@ -219,22 +236,8 @@
       font-weight: 600;
     }
 
-    .status-pill .pulse-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--neon-green);
-      box-shadow: 0 0 10px var(--neon-green);
-      animation: pulse 1.8s infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); opacity: 1; }
-      50% { transform: scale(1.4); opacity: 0.5; }
-    }
-
     .hero-title {
-      font-size: 3.5rem;
+      font-size: 3.4rem;
       font-weight: 800;
       line-height: 1.15;
       letter-spacing: -1.5px;
@@ -260,19 +263,14 @@
       flex-wrap: wrap;
     }
 
-    /* Canlı Simülasyon Kartı (Mockup) */
+    /* Canlı MDM Simülasyon Kartı */
     .mockup-card {
       background: var(--bg-card);
       border: 1px solid var(--border-color);
       border-radius: 20px;
       padding: 24px;
-      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.8), 0 0 30px rgba(0, 210, 255, 0.08);
+      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.8);
       backdrop-filter: blur(16px);
-      transition: transform 0.3s ease, border-color 0.3s ease;
-    }
-
-    .mockup-card:hover {
-      border-color: var(--border-focus);
     }
 
     .mockup-header {
@@ -305,7 +303,7 @@
     }
 
     .download-task {
-      background: rgba(0, 0, 0, 0.35);
+      background: rgba(0, 0, 0, 0.4);
       border: 1px solid var(--border-color);
       border-radius: 12px;
       padding: 16px;
@@ -340,7 +338,6 @@
       border-radius: 99px;
       overflow: hidden;
       margin-bottom: 12px;
-      position: relative;
     }
 
     .progress-bar-fill {
@@ -348,8 +345,6 @@
       height: 100%;
       background: linear-gradient(90deg, var(--primary), var(--neon-green));
       border-radius: 99px;
-      transition: width 0.4s ease;
-      position: relative;
     }
 
     .segment-label {
@@ -382,12 +377,12 @@
       background: var(--neon-green);
     }
 
-    /* İstatistik Şeridi */
+    /* İstatistikler */
     .stats-section {
-      padding: 50px 0;
+      padding: 55px 0;
       border-top: 1px solid var(--border-color);
       border-bottom: 1px solid var(--border-color);
-      background: rgba(14, 19, 31, 0.4);
+      background: rgba(14, 19, 31, 0.5);
     }
 
     .stats-grid {
@@ -452,7 +447,6 @@
       padding: 32px;
       backdrop-filter: blur(10px);
       transition: all 0.35s ease;
-      position: relative;
     }
 
     .feature-card:hover {
@@ -504,7 +498,6 @@
       background: var(--bg-card);
       border-radius: 16px;
       padding: 24px;
-      position: relative;
     }
 
     .roadmap-step.active {
@@ -525,13 +518,13 @@
     .badge-progress { background: rgba(0, 210, 255, 0.15); color: var(--primary); }
     .badge-next { background: rgba(255, 255, 255, 0.08); color: var(--text-muted); }
 
-    /* Kapanış Paneli (Mimari & Durum Özeti) */
+    /* Alt Durum Paneli */
     .status-banner-section {
       padding-bottom: 130px;
     }
 
     .status-banner-box {
-      background: linear-gradient(135deg, rgba(14, 21, 38, 0.9), rgba(20, 15, 35, 0.9));
+      background: linear-gradient(135deg, rgba(14, 21, 38, 0.95), rgba(20, 15, 35, 0.95));
       border: 1px solid rgba(0, 210, 255, 0.25);
       border-radius: 24px;
       padding: 60px 40px;
@@ -584,7 +577,6 @@
       align-items: center;
     }
 
-    /* Responsive */
     @media (max-width: 992px) {
       .hero-grid { grid-template-columns: 1fr; gap: 40px; }
       .features-grid { grid-template-columns: repeat(2, 1fr); }
@@ -623,15 +615,15 @@
           <li><a href="#roadmap">Yol Haritası</a></li>
         </ul>
         <div class="nav-status">
-          <span class="pulse-dot" style="width: 7px; height: 7px; border-radius: 50%; background: var(--neon-green); box-shadow: 0 0 8px var(--neon-green);"></span>
+          <span class="pulse-dot"></span>
           v1.0 Geliştirme Aşamasında
         </div>
       </nav>
     </div>
   </header>
 
-  <!-- Hero Section -->
-  <section class="hero">
+  <!-- Hero -->
+  <section class="hero" id="home">
     <div class="container">
       <div class="hero-grid">
         <div class="hero-content reveal">
@@ -652,8 +644,8 @@
           </div>
         </div>
 
-        <!-- MDM Canlı UI Mockup -->
-        <div class="hero-mockup reveal" style="transition-delay: 0.15s;">
+        <!-- Live Card -->
+        <div class="hero-mockup reveal">
           <div class="mockup-card">
             <div class="mockup-header">
               <div class="window-controls">
@@ -667,7 +659,7 @@
             <div class="download-task">
               <div class="task-top">
                 <div class="task-name">
-                  <span>🚀</span>
+                  <span>⚡</span>
                   <span>Windows11_Insider_x64.iso</span>
                 </div>
                 <div class="task-speed" id="live-speed">118.4 MB/s</div>
@@ -682,7 +674,6 @@
                 <span>74%</span>
               </div>
 
-              <!-- 16 Parçalı Segment Durum Izgarası -->
               <div class="segment-grid" id="segment-grid"></div>
             </div>
 
@@ -696,7 +687,7 @@
     </div>
   </section>
 
-  <!-- İstatistikler -->
+  <!-- Stats -->
   <section class="stats-section" id="stats">
     <div class="container">
       <div class="stats-grid">
@@ -704,72 +695,72 @@
           <div class="stat-number">32x</div>
           <div class="stat-label">Eşzamanlı Segment Kanalı</div>
         </div>
-        <div class="stat-item reveal" style="transition-delay: 0.1s;">
+        <div class="stat-item reveal">
           <div class="stat-number">0%</div>
           <div class="stat-label">Gereksiz Telemetri / Saf Hız</div>
         </div>
-        <div class="stat-item reveal" style="transition-delay: 0.2s;">
+        <div class="stat-item reveal">
           <div class="stat-number">28765</div>
           <div class="stat-label">Entegre Tarayıcı Köprü Portu</div>
         </div>
-        <div class="stat-item reveal" style="transition-delay: 0.3s;">
+        <div class="stat-item reveal">
           <div class="stat-number">PyQt6</div>
-          <div class="stat-label">Donanım Hızlandırmalı Modern Arayüz</div>
+          <div class="stat-label">Donanım Hızlandırmalı Modern UI</div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Özellikler -->
+  <!-- Features -->
   <section class="features-section" id="features">
     <div class="container">
       <div class="section-title-wrap reveal">
         <span class="section-tag">Gelişmiş Çekirdek</span>
         <h2 class="section-title">Hız İçin Tasarlandı</h2>
-        <p style="color: var(--text-muted);">Geleneksel, tek bağlantılı hantal indirme araçlarını unutun. MDM sıfırdan modern protokoller için optimize edildi.</p>
+        <p style="color: var(--text-muted);">Geleneksel, tek bağlantılı indirme araçlarını unutun. MDM sıfırdan modern soket protokolleri için optimize edildi.</p>
       </div>
 
       <div class="features-grid">
         <div class="feature-card reveal">
           <div class="feature-icon-box">⚡</div>
           <h3>Dinamik Segment Motoru</h3>
-          <p>Dosyaları akıllı parçalara böler, her parçayı bağımsız soketler üzerinden indirir ve sonunda CRC kontrolüyle bozulmasız birleştirir.</p>
+          <p>Dosyaları akıllı parçalara böler, her parçayı bağımsız soketler üzerinden indirir ve sonunda bozulmasız birleştirir.</p>
         </div>
 
-        <div class="feature-card reveal" style="transition-delay: 0.1s;">
+        <div class="feature-card reveal">
           <div class="feature-icon-box">🌐</div>
           <h3>Tarayıcı Köprüsü & Native Host</h3>
-          <p>Chrome, Edge ve Chromium tarayıcılardan indirme linklerini anında yakalar. Tek tıkla arka plandaki MDM motoruna aktarır.</p>
+          <p>Chrome, Edge ve Chromium tarayıcılardan indirme linklerini anında yakalar. Arka plandaki MDM motoruna aktarır.</p>
         </div>
 
-        <div class="feature-card reveal" style="transition-delay: 0.2s;">
+        <div class="feature-card reveal">
           <div class="feature-icon-box">🧲</div>
           <h3>Torrent & Magnet Desteği</h3>
-          <p>Harici bir BitTorrent istemcisine gerek kalmadan magnet linkleri ve .torrent dosyalarını yerel çekirdeğiyle doğrudan indirir.</p>
+          <p>Harici bir istemciye gerek duymadan magnet linkleri ve .torrent dosyalarını yerel çekirdeğiyle doğrudan indirir.</p>
         </div>
 
         <div class="feature-card reveal">
           <div class="feature-icon-box">🎬</div>
           <h3>YouTube & Medya Çözümleyici</h3>
-          <p>Video platformlarından doğrudan ses (MP3) veya 4K kalitesinde video akışlarını otomatik ayıklar ve maksimum hızda kaydeder.</p>
+          <p>Video platformlarından doğrudan MP3 ses veya 4K kalitesinde video akışlarını otomatik ayıklar ve maksimum hızda kaydeder.</p>
         </div>
 
-        <div class="feature-card reveal" style="transition-delay: 0.1s;">
+        <div class="feature-card reveal">
           <div class="feature-icon-box">📊</div>
           <h3>Kuyruk & Hız Sınırlayıcı</h3>
-          <p>Oyun oynarken veya yayın izlerken indirme hızınızı istediğiniz değere limitleyin, sıralı kuyruk ile kotanızı yönetin.</p>
+          <p>Oyun oynarken veya yayın izlerken indirme hızınızı sınırlandırın, sıralı kuyruk ile internet kotanızı yönetin.</p>
         </div>
 
-        <div class="feature-card reveal" style="transition-delay: 0.2s;">
+        <div class="feature-card reveal">
           <div class="feature-icon-box">🌙</div>
           <h3>Karanlık & Akıcı Arayüz</h3>
-          <p>PyQt6 modern render motoruyla tasarlanan karanlık tema, yüksek DPI monitörlerde bile sıfır gecikme ve kusursuz netlik sunar.</p>
+          <p>PyQt6 render motoruyla tasarlanan karanlık tema, yüksek DPI monitörlerde bile sıfır gecikme ve netlik sunar.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Yol Haritası -->
+  <!-- Roadmap -->
   <section class="roadmap-section" id="roadmap">
     <div class="container">
       <div class="section-title-wrap reveal">
@@ -784,13 +775,13 @@
           <p style="font-size: 0.9rem; color: var(--text-muted);">Segment worker mantığı, çok kanallı soketler ve PyQt6 GUI tasarım sistemi tamamlandı.</p>
         </div>
 
-        <div class="roadmap-step active reveal" style="transition-delay: 0.1s;">
+        <div class="roadmap-step active reveal">
           <span class="roadmap-badge badge-progress">Şu Anda Burada</span>
           <h3 style="margin-bottom: 8px;">Faz 2: Entegrasyon & Test</h3>
           <p style="font-size: 0.9rem; color: var(--text-muted);">Bridge server, tarayıcı eklentisi ve native host iletişim kararlılık testleri yapılıyor.</p>
         </div>
 
-        <div class="roadmap-step reveal" style="transition-delay: 0.2s;">
+        <div class="roadmap-step reveal">
           <span class="roadmap-badge badge-next">Sıradaki</span>
           <h3 style="margin-bottom: 8px;">Faz 3: Stabil Dağıtım</h3>
           <p style="font-size: 0.9rem; color: var(--text-muted);">Tüm testler sonuçlandığında ilk kararlı sürüm kullanıcılarla buluşacak.</p>
@@ -822,9 +813,61 @@
     <div class="container">
       <div class="footer-inner">
         <p>© 2025 MRT Download Manager (MDM). Tüm hakları saklıdır.</p>
-        <p style="color: var(--text-muted);">Performans, gizlilik ve maksimum indirme hızı.</p>
+        <p style="color: var(--text-muted);">Hız, gizlilik ve performans odaklı indirme yöneticisi.</p>
       </div>
     </div>
   </footer>
 
-  <!-- Etkileşim ve Scroll M
+  <script>
+    // Güvenli başlatma: Sayfa açıldığı an JS hazır bayrağını ver
+    document.addEventListener('DOMContentLoaded', () => {
+      document.body.classList.add('js-ready');
+
+      // IntersectionObserver
+      if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('active');
+            }
+          });
+        }, {
+          threshold: 0.05
+        });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+      } else {
+        // Eski tarayıcı desteği fallback
+        document.querySelectorAll('.reveal').forEach(el => el.classList.add('active'));
+      }
+
+      // Canlı Segment blokları oluştur
+      const segmentGrid = document.getElementById('segment-grid');
+      if (segmentGrid) {
+        for (let i = 0; i < 16; i++) {
+          const block = document.createElement('div');
+          block.className = 'segment-block';
+          if (i < 11) block.classList.add('completed');
+          else if (i < 14) block.classList.add('active');
+          segmentGrid.appendChild(block);
+        }
+      }
+
+      // Hız canlandırması
+      const speedEl = document.getElementById('live-speed');
+      if (speedEl) {
+        setInterval(() => {
+          const randomSpeed = (112 + Math.random() * 8.5).toFixed(1);
+          speedEl.textContent = `${randomSpeed} MB/s`;
+
+          const blocks = document.querySelectorAll('.segment-block');
+          if (blocks.length > 14) {
+            const targetBlock = blocks[12 + Math.floor(Math.random() * 3)];
+            if (targetBlock) targetBlock.classList.toggle('active');
+          }
+        }, 900);
+      }
+    });
+  </script>
+</body>
+</html>
