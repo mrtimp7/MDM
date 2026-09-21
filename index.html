@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="tr" class="dark">
 <head>
@@ -27,13 +28,13 @@
         }
     </script>
 
-    <!-- Three.js (3D Render Engine) -->
+    <!-- Three.js (3D Render Motoru) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <!-- Fridrich / CFOP Rubik Solver Engine -->
+    <!-- Fridrich / CFOP Rubik Çözüm Kütüphanesi -->
     <script src="https://cdn.jsdelivr.net/npm/rubiks-cube-solver@1.2.0/lib/index.common.min.js"></script>
-    <!-- FontAwesome Icon Set -->
+    <!-- FontAwesome İkon Seti -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Inter Font -->
+    <!-- Google Inter Font -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
     <style>
@@ -79,6 +80,7 @@
 </head>
 <body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col justify-between">
 
+    <!-- Üst Başlık & Sekmeler -->
     <header class="glass-panel sticky top-0 z-40 px-4 py-3 border-b border-slate-800">
         <div class="max-w-7xl mx-auto flex items-center justify-between">
             <div class="flex items-center space-x-3">
@@ -89,7 +91,7 @@
                     <h1 class="font-bold text-lg leading-tight bg-gradient-to-r from-white via-slate-200 to-blue-400 bg-clip-text text-transparent">
                         Rubik Küp AI Tarayıcı & 3D Çözücü
                     </h1>
-                    <p class="text-xs text-slate-400">Akıllı Kamera Analizi & 3D Sesli Rehber</p>
+                    <p class="text-xs text-slate-400">Canlı 3D Tutuş Rehberi & Doğal Türkçe Sesli Asistan</p>
                 </div>
             </div>
 
@@ -100,7 +102,7 @@
                 </button>
                 <button id="tab-scan-btn" onclick="switchTab('scan')" class="px-3 sm:px-4 py-1.5 rounded-lg transition-all text-slate-400 hover:text-white flex items-center space-x-2">
                     <i class="fa-solid fa-camera-rotate text-emerald-400"></i>
-                    <span>AI Kamera Tarayıcı</span>
+                    <span>AI Kamera & 3D Rehber</span>
                 </button>
                 <button id="tab-solve-btn" onclick="switchTab('solve')" class="px-3 sm:px-4 py-1.5 rounded-lg transition-all text-slate-400 hover:text-white flex items-center space-x-2">
                     <i class="fa-solid fa-wand-magic-sparkles text-indigo-400"></i>
@@ -134,7 +136,7 @@
                 <div class="absolute bottom-6 left-6 right-6 flex items-center justify-between pointer-events-none">
                     <div class="glass-card px-3 py-1.5 rounded-lg text-xs text-slate-300 pointer-events-auto flex items-center space-x-2">
                         <i class="fa-solid fa-hand-pointer text-blue-400"></i>
-                        <span>Döndürmek için sürükleyin</span>
+                        <span>Çevirmek için sürükleyin</span>
                     </div>
                     <div id="cube-status-badge" class="glass-card px-3 py-1.5 rounded-lg text-xs font-semibold text-emerald-400 pointer-events-auto border border-emerald-500/30">
                         Çözülmüş Durumda
@@ -170,7 +172,7 @@
 
                     <div class="text-[11px] text-slate-400 mb-2 flex items-center justify-between">
                         <span>Açık Küp Şablonu:</span>
-                        <span class="text-slate-500">Değiştirmek için kareye tıklayın</span>
+                        <span class="text-slate-500">Kareye tıklayıp rengi uygulayın</span>
                     </div>
 
                     <!-- 2D Küp Net Haritası -->
@@ -200,9 +202,9 @@
             </div>
         </section>
 
-        <!-- ================= BÖLÜM 2: AKILLI AI KAMERA TARAYICI ================= -->
+        <!-- ================= BÖLÜM 2: AKILLI AI KAMERA & 3D CANLI REHBER ================= -->
         <section id="section-scan" class="hidden lg:col-span-12 grid grid-cols-1 lg:grid-cols-12 gap-6 w-full">
-            <div class="lg:col-span-8 glass-panel rounded-2xl p-5 flex flex-col items-center relative min-h-[520px]">
+            <div class="lg:col-span-7 glass-panel rounded-2xl p-4 sm:p-5 flex flex-col items-center relative min-h-[520px]">
                 
                 <div class="w-full flex items-center justify-between mb-3">
                     <div class="flex items-center space-x-2">
@@ -210,7 +212,7 @@
                             Adım 1/6: BEYAZ (ÜST)
                         </span>
                         <span id="ai-voice-status" class="text-xs text-amber-400 flex items-center gap-1 font-medium">
-                            <i class="fa-solid fa-robot"></i> Kamera Başlatılıyor...
+                            <i class="fa-solid fa-microchip"></i> AI İşlemci Hazır
                         </span>
                     </div>
                     
@@ -224,7 +226,7 @@
                     </div>
                 </div>
 
-                <!-- Kamera & Kırpma Konteyneri -->
+                <!-- Kamera Görünümü & Kare Hizalama -->
                 <div class="relative w-full max-w-[390px] aspect-square rounded-2xl overflow-hidden bg-slate-950 border-4 border-slate-800 shadow-2xl flex items-center justify-center">
                     
                     <video id="webcam-feed" autoplay playsinline muted class="w-full h-full object-cover"></video>
@@ -238,8 +240,8 @@
                         <div class="cell-3 rounded-lg border border-white/40 flex items-center justify-center bg-black/30 font-bold text-[10px] text-white"></div>
                         
                         <div class="cell-4 rounded-lg border-2 border-dashed border-blue-400 flex flex-col items-center justify-center bg-blue-600/30 text-[10px] font-bold text-white shadow-lg">
-                            <i class="fa-solid fa-crosshairs text-blue-300 text-lg"></i>
-                            <span id="center-color-tag" class="text-[9px] mt-0.5 font-black uppercase">HEDEF</span>
+                            <i class="fa-solid fa-crosshairs text-blue-300 text-lg animate-pulse"></i>
+                            <span id="center-color-tag" class="text-[9px] mt-0.5 font-black uppercase">MERKEZ</span>
                         </div>
 
                         <div class="cell-5 rounded-lg border border-white/40 flex items-center justify-center bg-black/30 font-bold text-[10px] text-white"></div>
@@ -254,7 +256,7 @@
                         </div>
                     </div>
 
-                    <!-- Geri Sayım Rozeti -->
+                    <!-- Sabit Tutma Geri Sayım Rozeti -->
                     <div id="countdown-badge" class="hidden absolute bottom-3 left-1/2 -translate-x-1/2 bg-slate-900/95 border border-emerald-500/60 backdrop-blur-md px-4 py-2 rounded-2xl flex items-center space-x-3 shadow-2xl z-30">
                         <div class="relative w-9 h-9 flex items-center justify-center">
                             <svg class="w-full h-full transform -rotate-90">
@@ -271,8 +273,8 @@
 
                     <div id="camera-fallback" class="absolute inset-0 flex flex-col items-center justify-center bg-slate-900 p-6 text-center z-10">
                         <i class="fa-solid fa-camera text-4xl text-blue-400 mb-3 animate-pulse"></i>
-                        <p class="text-sm text-slate-200 font-semibold mb-1">Kamera Başlatılıyor veya İzin Bekleniyor</p>
-                        <p class="text-xs text-slate-400 max-w-xs mb-4">Kamera izni vermeyi onaylayın veya hazır demo verisi ile testi hemen deneyin.</p>
+                        <p class="text-sm text-slate-200 font-semibold mb-1">Kamera Başlatılıyor</p>
+                        <p class="text-xs text-slate-400 max-w-xs mb-4">Kameraya izin verin veya örnek tarama verisini yükleyin.</p>
                         
                         <div class="flex flex-col sm:flex-row gap-2">
                             <button onclick="startCamera()" class="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-xs font-bold transition">
@@ -296,19 +298,60 @@
                 </div>
             </div>
 
-            <div class="lg:col-span-4 glass-panel rounded-2xl p-5 flex flex-col justify-between">
-                <div>
-                    <h3 class="font-semibold text-slate-200 mb-1 flex items-center gap-2 text-sm">
-                        <i class="fa-solid fa-list-check text-emerald-400"></i> Tarama Adımları (6 Yüzey)
-                    </h3>
-                    <p class="text-xs text-slate-400 mb-3" id="scan-orientation-hint">
-                        İpucu: Üstte BEYAZ, önde YEŞİL tutarak başlayın.
-                    </p>
+            <!-- Sağ Sütun: 3D CANLI TUTUŞ & ÇEVİRME REHBERİ -->
+            <div class="lg:col-span-5 glass-panel rounded-2xl p-5 flex flex-col space-y-4">
+                
+                <!-- 3D Canlı Yönlendirme Kartı -->
+                <div class="bg-slate-900/90 rounded-2xl p-4 border border-blue-500/30 flex flex-col items-center relative overflow-hidden shadow-xl">
+                    <div class="w-full flex items-center justify-between mb-2">
+                        <span class="text-xs font-bold text-blue-400 flex items-center gap-1.5">
+                            <i class="fa-solid fa-compass text-blue-400"></i> 3D Küpü Tutuş & Çevirme Rehberi
+                        </span>
+                        <button onclick="replayGuideOrientationAnimation()" class="text-[11px] text-slate-400 hover:text-white bg-slate-800 px-2 py-1 rounded-md transition flex items-center gap-1" title="Hareketi Tekrar Göster">
+                            <i class="fa-solid fa-rotate-right"></i> Tekrarla
+                        </button>
+                    </div>
 
-                    <div class="space-y-2 text-xs" id="scan-progress-list"></div>
+                    <!-- 3D Rehber Küp Konteyneri -->
+                    <div class="relative w-full h-[190px] rounded-xl overflow-hidden bg-slate-950/80 border border-slate-800 flex items-center justify-center">
+                        <div id="scan-guide-canvas-container" class="w-full h-full"></div>
+                        
+                        <!-- 3D Döndürme Yön İpucu Rozeti -->
+                        <div id="guide-action-badge" class="absolute bottom-2 left-2 right-2 glass-card px-3 py-1.5 rounded-lg text-center border border-indigo-500/30">
+                            <p class="text-xs font-bold text-emerald-300 flex items-center justify-center gap-1.5" id="guide-turn-text">
+                                <i class="fa-solid fa-hand-holding"></i> Küpü BEYAZ merkez öne gelecek şekilde tutun
+                            </p>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="pt-4 border-t border-slate-800">
+                <!-- Ses ve İşlemci Motoru Ayar Modülü -->
+                <div class="bg-slate-900/70 rounded-xl p-3 border border-slate-800 space-y-2">
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-semibold text-slate-300 flex items-center gap-1.5">
+                            <i class="fa-solid fa-microchip text-indigo-400"></i> İşlemci Ses Motoru (Doğal Türkçe)
+                        </span>
+                        <button onclick="testCurrentVoice()" class="px-2 py-1 bg-indigo-600/30 hover:bg-indigo-600 text-indigo-300 hover:text-white rounded text-[11px] font-medium transition flex items-center gap-1">
+                            <i class="fa-solid fa-play text-[9px]"></i> Sesi Dinle
+                        </button>
+                    </div>
+                    <select id="voice-selector" onchange="onVoiceSelectionChange()" class="w-full bg-slate-950 border border-slate-700 text-slate-200 text-xs rounded-lg p-2 focus:ring-1 focus:ring-blue-500 focus:outline-none">
+                        <option value="">Telefonun Doğal Türkçe Motoru Aranıyor...</option>
+                    </select>
+                    <p class="text-[10px] text-slate-400" id="voice-engine-desc">
+                        Cihazınızdaki (Google/Siri/Samsung) nöral ses işlemcisi otomatik optimize edildi.
+                    </p>
+                </div>
+
+                <!-- Yüzey İlerlemesi -->
+                <div>
+                    <h3 class="font-semibold text-slate-200 mb-2 flex items-center gap-2 text-xs">
+                        <i class="fa-solid fa-list-check text-emerald-400"></i> Tarama Adımları (6 Yüzey)
+                    </h3>
+                    <div class="space-y-1.5 text-xs max-h-36 overflow-y-auto pr-1" id="scan-progress-list"></div>
+                </div>
+
+                <div class="pt-2">
                     <button id="finish-scan-btn" onclick="applyScanToCube()" disabled class="w-full py-3 bg-blue-600 disabled:opacity-40 disabled:cursor-not-allowed hover:bg-blue-500 text-white font-bold rounded-xl text-xs shadow-lg transition flex items-center justify-center space-x-2">
                         <span>3D Modele Aktar ve Çözümü Üret</span>
                         <i class="fa-solid fa-arrow-right"></i>
@@ -445,7 +488,7 @@
 
     <script>
         // ==========================================
-        // SABİTLER VE BAŞLANGIÇ DURUMU
+        // SABİTLER VE BAŞLANGIÇ VERİ MODELLERİ
         // ==========================================
         const CUBE_COLORS = {
             'W': { hex: 0xFFFFFF, css: 'bg-white', name: 'Beyaz' },
@@ -457,7 +500,6 @@
             'UNKNOWN': { hex: 0x1E293B, css: 'bg-slate-800', name: 'Belirsiz' }
         };
 
-        // Küp Veri Modeli (Standart Çözülmüş Başlangıç)
         let cubeState = {
             'U': Array(9).fill('W'),
             'R': Array(9).fill('R'),
@@ -467,25 +509,30 @@
             'B': Array(9).fill('B')
         };
 
-        // Çözüm aşaması için başlangıç durumu yedeği
         let initialSolveCubeState = null;
-
         let selectedPaletteColor = 'W';
         let voiceEnabled = true;
         let voiceThrottleTimer = 0;
 
-        // 3D Sahne Değişkenleri (Ana Küp)
+        // 3D Sahne Referansları
         let scene, camera, renderer, cubeGroup;
         let cubies = [];
         let targetRotationX = 0.5, targetRotationY = -0.6;
         let isMouseDown = false, mouseX = 0, mouseY = 0;
 
-        // 3D Sahne Değişkenleri (Çözüm Küpü)
         let solveScene, solveCamera, solveRenderer, solveCubeGroup;
         let solveCubies = [];
         let solveTargetRotX = 0.5, solveTargetRotY = -0.6;
         let isSolveMouseDown = false, solveMouseX = 0, solveMouseY = 0;
         let isAnimatingMove = false;
+
+        // ==========================================
+        // 3D CANLI YÖNLENDİRME (GUIDE CUBE) MOTORU
+        // ==========================================
+        let guideScene, guideCamera, guideRenderer, guideCubeGroup;
+        let guideTargetRotX = 0, guideTargetRotY = 0, guideTargetRotZ = 0;
+        let guideCurrentRotX = 0, guideCurrentRotY = 0, guideCurrentRotZ = 0;
+        let guidePulseMesh = null;
 
         // Kamera & AI Tarama Durumları
         let mediaStream = null;
@@ -501,20 +548,175 @@
         let pendingVerificationGrid = Array(9).fill('W');
         let selectedVerifyColor = 'W';
 
+        // 6 Yüzeyin Tutuş Açısı ve Yönlendirme Verisi
         const scanFaceOrder = [
-            { key: 'U', name: 'ÜST (U)', colorName: 'Beyaz Merkez', expectedColor: 'W', hint: 'Üstte BEYAZ, önde YEŞİL tutun.' },
-            { key: 'R', name: 'SAĞ (R)', colorName: 'Kırmızı Merkez', expectedColor: 'R', hint: 'Küpü sola çevirin: Kırmızı merkez öne gelsin.' },
-            { key: 'F', name: 'ÖN (F)', colorName: 'Yeşil Merkez', expectedColor: 'G', hint: 'Küpü sağa çevirin: Yeşil merkez öne gelsin.' },
-            { key: 'D', name: 'ALT (D)', colorName: 'Sarı Merkez', expectedColor: 'Y', hint: 'Küpü yukarı yatırın: Sarı alt merkez öne gelsin.' },
-            { key: 'L', name: 'SOL (L)', colorName: 'Turuncu Merkez', expectedColor: 'O', hint: 'Küpü sola çevirin: Turuncu merkez öne gelsin.' },
-            { key: 'B', name: 'ARKA (B)', colorName: 'Mavi Merkez', expectedColor: 'B', hint: 'Küpü arkaya çevirin: Mavi merkez öne gelsin.' }
+            { 
+                key: 'U', name: 'ÜST (U)', colorName: 'Beyaz Merkez', expectedColor: 'W', 
+                actionText: 'Küpü BEYAZ merkez öne gelecek şekilde tutun',
+                voiceInstruction: 'Birinci adım. Beyaz merkezli yüzü kameraya tutun.',
+                targetRot: { x: Math.PI / 2, y: 0, z: 0 } 
+            },
+            { 
+                key: 'R', name: 'SAĞ (R)', colorName: 'Kırmızı Merkez', expectedColor: 'R', 
+                actionText: 'Küpü SOLA 90° çevirin (Kırmızı merkez öne gelsin)',
+                voiceInstruction: 'Küpü sola çevirin. Kırmızı merkezli yüzü gösterin.',
+                targetRot: { x: 0, y: -Math.PI / 2, z: 0 } 
+            },
+            { 
+                key: 'F', name: 'ÖN (F)', colorName: 'Yeşil Merkez', expectedColor: 'G', 
+                actionText: 'Küpü SOLA 90° çevirin (Yeşil merkez öne gelsin)',
+                voiceInstruction: 'Küpü tekrar sola çevirin. Yeşil merkezli yüzü gösterin.',
+                targetRot: { x: 0, y: 0, z: 0 } 
+            },
+            { 
+                key: 'D', name: 'ALT (D)', colorName: 'Sarı Merkez', expectedColor: 'Y', 
+                actionText: 'Küpü YUKARI 90° yatırın (Sarı alt merkez öne gelsin)',
+                voiceInstruction: 'Küpü yukarı doğru yatırın. Sarı merkezli yüzü tutun.',
+                targetRot: { x: -Math.PI / 2, y: 0, z: 0 } 
+            },
+            { 
+                key: 'L', name: 'SOL (L)', colorName: 'Turuncu Merkez', expectedColor: 'O', 
+                actionText: 'Küpü SOLA 90° çevirin (Turuncu merkez öne gelsin)',
+                voiceInstruction: 'Küpü sola çevirin. Turuncu merkezli yüzü gösterin.',
+                targetRot: { x: 0, y: Math.PI / 2, z: 0 } 
+            },
+            { 
+                key: 'B', name: 'ARKA (B)', colorName: 'Mavi Merkez', expectedColor: 'B', 
+                actionText: 'Küpü 180° arkaya çevirin (Mavi merkez öne gelsin)',
+                voiceInstruction: 'Son yüzey. Mavi merkezli arka yüzü kameraya tutun.',
+                targetRot: { x: 0, y: Math.PI, z: 0 } 
+            }
         ];
 
         let scannedFacesData = {};
         let scrambleHistory = [];
 
         // ==========================================
-        // 3D THREE.JS MOTORU (TEMİZ VE HATASIZ)
+        // CİHAZ İŞLEMCİSİYLE ÇALIŞAN DOĞAL TÜRKÇE TTS
+        // ==========================================
+        let availableVoices = [];
+        let selectedVoice = null;
+
+        function initNeuralTurkishTTS() {
+            if (!('speechSynthesis' in window)) {
+                console.warn('Tarayıcınız SpeechSynthesis desteklemiyor.');
+                return;
+            }
+
+            const loadVoices = () => {
+                const voices = window.speechSynthesis.getVoices();
+                if (!voices || voices.length === 0) return;
+
+                // Türkçe sesleri ayıkla
+                const turkishVoices = voices.filter(v => v.lang && (v.lang.startsWith('tr') || v.lang.includes('TR')));
+                
+                // Telefonun donanım/nöral işlemci seslerini puanla ve en iyisini seç
+                const scoreVoice = (v) => {
+                    let score = 0;
+                    const name = (v.name + ' ' + (v.voiceURI || '')).toLowerCase();
+                    if (name.includes('natural') || name.includes('doğal')) score += 120;
+                    if (name.includes('neural')) score += 110;
+                    if (name.includes('google')) score += 90; // Android NPU Google Speech Services
+                    if (name.includes('siri') || name.includes('yelda') || name.includes('cem')) score += 85; // iOS Apple Neural Engine
+                    if (name.includes('microsoft') || name.includes('online')) score += 80;
+                    if (v.localService) score += 20; // Telefonun yerel işlemcisiyle anında çalışır
+                    if (name.includes('espeak')) score -= 50; // Düşük kaliteli robotik sesleri düşür
+                    return score;
+                };
+
+                turkishVoices.sort((a, b) => scoreVoice(b) - scoreVoice(a));
+
+                availableVoices = turkishVoices.length > 0 ? turkishVoices : voices;
+                
+                // En yüksek puanlı doğal sesi varsayılan ata
+                if (!selectedVoice && turkishVoices.length > 0) {
+                    selectedVoice = turkishVoices[0];
+                }
+
+                populateVoiceDropdown(turkishVoices);
+            };
+
+            loadVoices();
+            if (window.speechSynthesis.onvoiceschanged !== undefined) {
+                window.speechSynthesis.onvoiceschanged = loadVoices;
+            }
+        }
+
+        function populateVoiceDropdown(turkishVoices) {
+            const select = document.getElementById('voice-selector');
+            const desc = document.getElementById('voice-engine-desc');
+            if (!select) return;
+
+            select.innerHTML = '';
+
+            if (turkishVoices.length === 0) {
+                const opt = document.createElement('option');
+                opt.value = '';
+                opt.textContent = 'Standart Cihaz Sesi (Türkçe Paketi Bekleniyor)';
+                select.appendChild(opt);
+                return;
+            }
+
+            turkishVoices.forEach((v, idx) => {
+                const opt = document.createElement('option');
+                opt.value = idx;
+                let badge = v.localService ? '⚡ [Cihaz İçi]' : '🌐 [Bulut / Nöral]';
+                opt.textContent = `${badge} ${v.name} (${v.lang})`;
+                if (selectedVoice && v.name === selectedVoice.name) {
+                    opt.selected = true;
+                }
+                select.appendChild(opt);
+            });
+
+            if (selectedVoice && desc) {
+                desc.textContent = `Aktif Motor: ${selectedVoice.name} - Telefon işlemciniz ile optimize edildi.`;
+            }
+        }
+
+        function onVoiceSelectionChange() {
+            const select = document.getElementById('voice-selector');
+            const desc = document.getElementById('voice-engine-desc');
+            const idx = parseInt(select.value);
+            if (!isNaN(idx) && availableVoices[idx]) {
+                selectedVoice = availableVoices[idx];
+                if (desc) desc.textContent = `Aktif Motor: ${selectedVoice.name} - Seçildi.`;
+                speakVoice("Doğal Türkçe ses motoru seçildi.");
+            }
+        }
+
+        function testCurrentVoice() {
+            speakVoice("Merhaba! Rubik Küp yapay zeka asistanı hazır. Küpü yönlendirmelere göre tutun.");
+        }
+
+        function speakVoice(text) {
+            if (!voiceEnabled || !('speechSynthesis' in window)) return;
+            window.speechSynthesis.cancel();
+
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'tr-TR';
+            
+            if (selectedVoice) {
+                utterance.voice = selectedVoice;
+            }
+
+            // Doğal Türkçe için özel hız ve ton ayarı
+            utterance.rate = 0.96;
+            utterance.pitch = 1.0;
+            utterance.volume = 1.0;
+
+            window.speechSynthesis.speak(utterance);
+        }
+
+        function speakThrottled(text) {
+            const now = Date.now();
+            if (now - voiceThrottleTimer > 3500) {
+                voiceThrottleTimer = now;
+                speakVoice(text);
+            }
+        }
+
+        // ==========================================
+        // 3D THREE.JS MOTORLARI
         // ==========================================
         function init3D() {
             const container = document.getElementById('canvas-container');
@@ -547,6 +749,7 @@
             }
 
             initSolve3D();
+            initGuide3D();
             animate3D();
             window.addEventListener('resize', onWindowResize);
         }
@@ -582,6 +785,98 @@
             setup3DInteractions(container, true);
         }
 
+        // Kamera Taraması İçin 3D Rehber Küpün Kurulumu
+        function initGuide3D() {
+            const container = document.getElementById('scan-guide-canvas-container');
+            if (!container) return;
+
+            const width = container.clientWidth || 220;
+            const height = container.clientHeight || 190;
+
+            guideScene = new THREE.Scene();
+            guideCamera = new THREE.PerspectiveCamera(35, width / height, 0.1, 1000);
+            guideCamera.position.set(0, 0, 7.2);
+            guideCamera.lookAt(0, 0, 0);
+
+            const ambLight = new THREE.AmbientLight(0xffffff, 0.95);
+            guideScene.add(ambLight);
+
+            const dLight = new THREE.DirectionalLight(0xffffff, 0.7);
+            dLight.position.set(5, 8, 10);
+            guideScene.add(dLight);
+
+            guideRenderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+            guideRenderer.setSize(width, height);
+            guideRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            container.appendChild(guideRenderer.domElement);
+
+            guideCubeGroup = new THREE.Group();
+            guideScene.add(guideCubeGroup);
+
+            // Rehber Küp Meshlerini Oluştur
+            const size = 0.95;
+            const gap = 1.01;
+            const geom = new THREE.BoxGeometry(size, size, size);
+
+            for (let x = -1; x <= 1; x++) {
+                for (let y = -1; y <= 1; y++) {
+                    for (let z = -1; z <= 1; z++) {
+                        const mats = [
+                            new THREE.MeshPhongMaterial({ color: x === 1 ? CUBE_COLORS['R'].hex : 0x111827 }),
+                            new THREE.MeshPhongMaterial({ color: x === -1 ? CUBE_COLORS['O'].hex : 0x111827 }),
+                            new THREE.MeshPhongMaterial({ color: y === 1 ? CUBE_COLORS['W'].hex : 0x111827 }),
+                            new THREE.MeshPhongMaterial({ color: y === -1 ? CUBE_COLORS['Y'].hex : 0x111827 }),
+                            new THREE.MeshPhongMaterial({ color: z === 1 ? CUBE_COLORS['G'].hex : 0x111827 }),
+                            new THREE.MeshPhongMaterial({ color: z === -1 ? CUBE_COLORS['B'].hex : 0x111827 })
+                        ];
+                        const cubie = new THREE.Mesh(geom, mats);
+                        cubie.position.set(x * gap, y * gap, z * gap);
+                        guideCubeGroup.add(cubie);
+                    }
+                }
+            }
+
+            // Hedef yüzeyi vurgulayan ışık halkası
+            const ringGeom = new THREE.RingGeometry(0.7, 0.9, 32);
+            const ringMat = new THREE.MeshBasicMaterial({ color: 0x38BDF8, side: THREE.DoubleSide, transparent: true, opacity: 0.8 });
+            guidePulseMesh = new THREE.Mesh(ringGeom, ringMat);
+            guidePulseMesh.position.set(0, 0, 1.6);
+            guideScene.add(guidePulseMesh);
+
+            updateGuideCubeOrientation(0, false);
+        }
+
+        function updateGuideCubeOrientation(faceIndex, animate = true) {
+            const step = scanFaceOrder[faceIndex];
+            if (!step) return;
+
+            guideTargetRotX = step.targetRot.x;
+            guideTargetRotY = step.targetRot.y;
+            guideTargetRotZ = step.targetRot.z;
+
+            const turnText = document.getElementById('guide-turn-text');
+            if (turnText) {
+                turnText.innerHTML = `<i class="fa-solid fa-compass animate-spin text-blue-400"></i> ${step.actionText}`;
+            }
+
+            if (!animate) {
+                guideCurrentRotX = guideTargetRotX;
+                guideCurrentRotY = guideTargetRotY;
+                guideCurrentRotZ = guideTargetRotZ;
+                if (guideCubeGroup) {
+                    guideCubeGroup.rotation.set(guideCurrentRotX, guideCurrentRotY, guideCurrentRotZ);
+                }
+            }
+        }
+
+        function replayGuideOrientationAnimation() {
+            guideCurrentRotX += 0.4;
+            guideCurrentRotY -= 0.6;
+            updateGuideCubeOrientation(currentScanFaceIndex, true);
+            const step = scanFaceOrder[currentScanFaceIndex];
+            speakVoice(step.actionText);
+        }
+
         function build3DCube(group, targetCubiesArray) {
             while (group.children.length > 0) group.remove(group.children[0]);
             targetCubiesArray.length = 0;
@@ -605,19 +900,14 @@
             update3DColorsFromState();
         }
 
-        // 3D Yüzey Renklerini cubeState ile %100 Senkronize Et
         function update3DColorsFromState() {
             [ { list: cubies }, { list: solveCubies } ].forEach(target => {
                 target.list.forEach(cubie => {
                     const gx = cubie.userData.gx;
                     const gy = cubie.userData.gy;
                     const gz = cubie.userData.gz;
-
                     const mats = cubie.material;
 
-                    // 0: +X (Sağ / R), 1: -X (Sol / L)
-                    // 2: +Y (Üst / U), 3: -Y (Alt / D)
-                    // 4: +Z (Ön / F),  5: -Z (Arka / B)
                     mats[0].color.setHex(gx === 1 ? (CUBE_COLORS[cubeState['R'][getIndexInFace('R', gx, gy, gz)]]?.hex || 0x111827) : 0x111827);
                     mats[1].color.setHex(gx === -1 ? (CUBE_COLORS[cubeState['L'][getIndexInFace('L', gx, gy, gz)]]?.hex || 0x111827) : 0x111827);
                     mats[2].color.setHex(gy === 1 ? (CUBE_COLORS[cubeState['U'][getIndexInFace('U', gx, gy, gz)]]?.hex || 0x111827) : 0x111827);
@@ -640,9 +930,6 @@
             return Math.max(0, Math.min(8, row * 3 + col));
         }
 
-        // ==========================================
-        // FARE & DOKUNMATİK (TOUCH) ETKİLEŞİMİ
-        // ==========================================
         function setup3DInteractions(container, isSolveView) {
             const onStart = (cx, cy) => {
                 if (isSolveView) { isSolveMouseDown = true; solveMouseX = cx; solveMouseY = cy; }
@@ -667,11 +954,8 @@
             window.addEventListener('mouseup', () => { isMouseDown = false; isSolveMouseDown = false; });
             window.addEventListener('mousemove', (e) => onMove(e.clientX, e.clientY));
 
-            // Mobil Dokunmatik Desteği
             container.addEventListener('touchstart', (e) => {
-                if (e.touches.length === 1) {
-                    onStart(e.touches[0].clientX, e.touches[0].clientY);
-                }
+                if (e.touches.length === 1) onStart(e.touches[0].clientX, e.touches[0].clientY);
             }, { passive: true });
 
             window.addEventListener('touchmove', (e) => {
@@ -685,20 +969,39 @@
 
         function animate3D() {
             requestAnimationFrame(animate3D);
+
+            // Ana Küp Render
             if (cubeGroup && renderer && scene) {
                 cubeGroup.rotation.y += (targetRotationY - cubeGroup.rotation.y) * 0.1;
                 cubeGroup.rotation.x += (targetRotationX - cubeGroup.rotation.x) * 0.1;
                 renderer.render(scene, camera);
             }
+
+            // Çözüm Küpü Render
             if (solveCubeGroup && solveRenderer && solveScene) {
                 solveCubeGroup.rotation.y += (solveTargetRotY - solveCubeGroup.rotation.y) * 0.1;
                 solveCubeGroup.rotation.x += (solveTargetRotX - solveCubeGroup.rotation.x) * 0.1;
                 solveRenderer.render(solveScene, solveCamera);
             }
+
+            // 3D Rehber Küp Render (Yumuşak Tutuş Açısı İnterpolasyonu)
+            if (guideCubeGroup && guideRenderer && guideScene) {
+                guideCurrentRotX += (guideTargetRotX - guideCurrentRotX) * 0.08;
+                guideCurrentRotY += (guideTargetRotY - guideCurrentRotY) * 0.08;
+                guideCurrentRotZ += (guideTargetRotZ - guideCurrentRotZ) * 0.08;
+                guideCubeGroup.rotation.set(guideCurrentRotX, guideCurrentRotY, guideCurrentRotZ);
+
+                if (guidePulseMesh) {
+                    const s = 1 + 0.05 * Math.sin(Date.now() * 0.006);
+                    guidePulseMesh.scale.set(s, s, s);
+                }
+
+                guideRenderer.render(guideScene, guideCamera);
+            }
         }
 
         // ==========================================
-        // MATEMATİKSEL KÜP DÖNDÜRME VE PERMÜTASYON
+        // DÖNDÜRME MOTORU VE PERMÜTASYON
         // ==========================================
         function getSticker3D(face, idx) {
             const row = Math.floor(idx / 3);
@@ -757,25 +1060,12 @@
                     let rx = st.x, ry = st.y, rz = st.z;
                     let rnx = st.nx, rny = st.ny, rnz = st.nz;
 
-                    if (face === 'R') {
-                        ry = st.z; rz = -st.y;
-                        rny = st.nz; rnz = -st.ny;
-                    } else if (face === 'L') {
-                        ry = -st.z; rz = st.y;
-                        rny = -st.nz; rnz = st.ny;
-                    } else if (face === 'U') {
-                        rx = -st.z; rz = st.x;
-                        rnx = -st.nz; rnz = st.nx;
-                    } else if (face === 'D') {
-                        rx = st.z; rz = -st.x;
-                        rnx = st.nz; rnz = -st.nx;
-                    } else if (face === 'F') {
-                        rx = st.y; ry = -st.x;
-                        rnx = st.ny; rny = -st.nx;
-                    } else if (face === 'B') {
-                        rx = -st.y; ry = st.x;
-                        rnx = -st.ny; rny = st.nx;
-                    }
+                    if (face === 'R') { ry = st.z; rz = -st.y; rny = st.nz; rnz = -st.ny; }
+                    else if (face === 'L') { ry = -st.z; rz = st.y; rny = -st.nz; rnz = st.ny; }
+                    else if (face === 'U') { rx = -st.z; rz = st.x; rnx = -st.nz; rnz = st.nx; }
+                    else if (face === 'D') { rx = st.z; rz = -st.x; rnx = st.nz; rnz = -st.nx; }
+                    else if (face === 'F') { rx = st.y; ry = -st.x; rnx = st.ny; rny = -st.nx; }
+                    else if (face === 'B') { rx = -st.y; ry = st.x; rnx = -st.ny; rny = st.nx; }
 
                     const target = getStickerFaceAndIndex(rx, ry, rz, rnx, rny, rnz);
                     if (target) {
@@ -787,7 +1077,6 @@
             cubeState = newState;
         }
 
-        // 3D Dönüş Animasyonu (Güvenli Pivot)
         function animateMove3D(move, durationMs, callback) {
             if (isAnimatingMove || !solveCubeGroup) {
                 rotateCubeState(move);
@@ -844,7 +1133,6 @@
                     pivot.rotation[axis] = targetAngle;
                     pivot.updateMatrixWorld();
 
-                    // Cubie'leri eski temel konumlarına güvenle iade et
                     selectedCubies.forEach(c => {
                         solveCubeGroup.attach(c);
                         const gx = c.userData.gx;
@@ -867,7 +1155,7 @@
         }
 
         // ==========================================
-        // 2D KÜP ŞABLONU VE MANUEL PALET
+        // 2D ŞABLON VE KÜP DURUMU
         // ==========================================
         function render2DNet() {
             const faces = ['U', 'L', 'F', 'R', 'B', 'D'];
@@ -899,11 +1187,8 @@
             ['W','R','G','Y','O','B'].forEach(k => {
                 const btn = document.getElementById(`color-btn-${k}`);
                 if (btn) {
-                    if (k === colorKey) {
-                        btn.classList.add('ring-2', 'ring-blue-500', 'scale-110');
-                    } else {
-                        btn.classList.remove('ring-2', 'ring-blue-500', 'scale-110');
-                    }
+                    if (k === colorKey) btn.classList.add('ring-2', 'ring-blue-500', 'scale-110');
+                    else btn.classList.remove('ring-2', 'ring-blue-500', 'scale-110');
                 }
             });
         }
@@ -984,10 +1269,16 @@
                 solveCamera.updateProjectionMatrix();
                 solveRenderer.setSize(c2.clientWidth, c2.clientHeight);
             }
+            const c3 = document.getElementById('scan-guide-canvas-container');
+            if (c3 && guideRenderer && guideCamera) {
+                guideCamera.aspect = c3.clientWidth / c3.clientHeight;
+                guideCamera.updateProjectionMatrix();
+                guideRenderer.setSize(c3.clientWidth, c3.clientHeight);
+            }
         }
 
         // ==========================================
-        // SESLİ YÖNLENDİRME (TTS)
+        // KAMERA TARAYICI & AI GÖRÜŞ DÖNGÜSÜ
         // ==========================================
         function toggleVoiceAssistance() {
             voiceEnabled = !voiceEnabled;
@@ -1000,41 +1291,15 @@
                     ? "px-2.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-emerald-400 text-xs rounded-lg transition flex items-center gap-1"
                     : "px-2.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-400 text-xs rounded-lg transition flex items-center gap-1";
             }
-            if (voiceEnabled) speakVoice("Sesli rehber aktif edildi.");
+            if (voiceEnabled) speakVoice("Sesli asistan aktif edildi.");
         }
 
-        function speakVoice(text) {
-            if (!voiceEnabled || !('speechSynthesis' in window)) return;
-            window.speechSynthesis.cancel();
-            const utterance = new SpeechSynthesisUtterance(text);
-            utterance.lang = 'tr-TR';
-            utterance.rate = 1.05;
-            window.speechSynthesis.speak(utterance);
-        }
-
-        function speakThrottled(text) {
-            const now = Date.now();
-            if (now - voiceThrottleTimer > 3500) {
-                voiceThrottleTimer = now;
-                speakVoice(text);
-            }
-        }
-
-        // ==========================================
-        // AI KAMERA GÖRÜNTÜ ANALİZİ & TARAMA
-        // ==========================================
         async function startCamera() {
             const video = document.getElementById('webcam-feed');
             const fallback = document.getElementById('camera-fallback');
 
             try {
-                if (mediaStream) {
-                    mediaStream.getTracks().forEach(t => t.stop());
-                }
-
-                if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-                    throw new Error("Tarayıcınız kamera API'sini desteklemiyor.");
-                }
+                if (mediaStream) mediaStream.getTracks().forEach(t => t.stop());
 
                 const constraints = {
                     video: {
@@ -1057,11 +1322,11 @@
                 if (voiceStatus) voiceStatus.innerHTML = `<i class="fa-solid fa-brain text-emerald-400"></i> Kamera Aktif`;
 
                 const cur = scanFaceOrder[currentScanFaceIndex];
-                speakVoice(`${cur.name} için kamerayı ${cur.colorName} yüzeye tutun.`);
+                speakVoice(cur.voiceInstruction);
             } catch (err) {
-                console.warn('Kamera açılırken hata:', err);
+                console.warn('Kamera açılamadı:', err);
                 fallback.classList.remove('hidden');
-                speakVoice("Kamera erişimi sağlanamadı. Demo taramayı kullanabilirsiniz.");
+                speakVoice("Kamera açılamadı. Demo taramayı kullanabilirsiniz.");
             }
         }
 
@@ -1102,8 +1367,6 @@
             }
 
             const ctx = canvas.getContext('2d', { willReadFrequently: true });
-            
-            // Object-cover hizalamasını birebir eşleştirmek için merkezden kare kırpma
             const vw = video.videoWidth;
             const vh = video.videoHeight;
             const minDim = Math.min(vw, vh);
@@ -1112,8 +1375,6 @@
             ctx.drawImage(video, sx, sy, minDim, minDim, 0, 0, 300, 300);
 
             const expectedTarget = scanFaceOrder[currentScanFaceIndex];
-            
-            // Overlay grid içindeki 9 bölgenin merkez örnekleme koordinatları
             const offset = 300 * 0.12;
             const gridSize = 300 * 0.76;
             const cellStep = gridSize / 3;
@@ -1143,7 +1404,6 @@
             recentFramesBuffer.push(rawGrid);
             if (recentFramesBuffer.length > 5) recentFramesBuffer.shift();
 
-            // Çoğunluk Oylaması (Majority Vote) ile titreşimi önleme
             let detectedGrid = Array(9).fill(null).map((_, cellIdx) => {
                 let counts = {};
                 recentFramesBuffer.forEach(frame => {
@@ -1153,7 +1413,6 @@
                 return Object.keys(counts).reduce((a, b) => counts[a] > counts[b] ? a : b, 'UNKNOWN');
             });
 
-            // Grid hücrelerine gerçek zamanlı görsel geri bildirim ver
             detectedGrid.forEach((colKey, cellIdx) => {
                 const cellElem = overlayBox.querySelector(`.cell-${cellIdx}`);
                 if (cellElem) {
@@ -1172,7 +1431,6 @@
 
             pendingVerificationGrid = [...detectedGrid];
 
-            // Karanlık veya küpün ekranda olmaması durumu
             if (darkCellsCount > 5 || detectedGrid[4] === 'UNKNOWN') {
                 stopCountdown();
                 overlayBox.className = "scan-target-box status-bad absolute inset-[12%] border-4 border-dashed rounded-2xl p-2 grid grid-cols-3 grid-rows-3 gap-2 pointer-events-none";
@@ -1188,12 +1446,11 @@
             if (isAlreadyScanned) {
                 stopCountdown();
                 overlayBox.className = "scan-target-box status-bad absolute inset-[12%] border-4 border-dashed rounded-2xl p-2 grid grid-cols-3 grid-rows-3 gap-2 pointer-events-none";
-                feedbackMsg.innerHTML = `<i class="fa-solid fa-circle-exclamation text-red-400"></i> ${centerFaceMatch.name} zaten tarandı! ${expectedTarget.colorName} yüzüne geçin.`;
-                speakThrottled(`Bu yüzey zaten tarandı. Sıradaki ${expectedTarget.colorName} yüzünü gösterin.`);
+                feedbackMsg.innerHTML = `<i class="fa-solid fa-circle-exclamation text-red-400"></i> ${centerFaceMatch.name} zaten tarandı! Sağdaki rehbere bakın.`;
+                speakThrottled(`Bu yüzey zaten tarandı. Rehberdeki gibi ${expectedTarget.colorName} yüzünü gösterin.`);
                 return;
             }
 
-            // Beklenen hedef yüz merkez rengi bulunduysa geri sayımı başlat
             if (centerDetectedColor === expectedTarget.expectedColor) {
                 overlayBox.className = "scan-target-box status-ready absolute inset-[12%] border-4 border-dashed rounded-2xl p-2 grid grid-cols-3 grid-rows-3 gap-2 pointer-events-none";
                 feedbackMsg.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-400"></i> Harika! ${expectedTarget.colorName} Sabit Tutun...`;
@@ -1205,12 +1462,11 @@
             } else {
                 stopCountdown();
                 overlayBox.className = "scan-target-box status-warning absolute inset-[12%] border-4 border-dashed rounded-2xl p-2 grid grid-cols-3 grid-rows-3 gap-2 pointer-events-none";
-                feedbackMsg.innerHTML = `<i class="fa-solid fa-arrows-to-eye text-amber-400"></i> ${expectedTarget.colorName} bekleniyor...`;
+                feedbackMsg.innerHTML = `<i class="fa-solid fa-arrows-to-eye text-amber-400"></i> 3D Rehberdeki gibi ${expectedTarget.colorName} çevirin...`;
                 if (voiceStatus) voiceStatus.innerHTML = `<i class="fa-solid fa-compass text-amber-400"></i> Farklı Merkez`;
             }
         }
 
-        // HSV Tabanlı Dayanıklı Renk Algılama Algoritması
         function matchColorRGB(r, g, b) {
             const sumRGB = r + g + b;
             const maxRGB = Math.max(r, g, b);
@@ -1234,26 +1490,11 @@
 
             const hue = h * 360;
 
-            // Doygunluk düşükse beyaz
             if (s < 0.22 && v > 0.40) return 'W';
-
-            // Mavi aralığı
-            if (hue >= 180 && hue <= 255) {
-                return (s > 0.30 && v > 0.25) ? 'B' : 'UNKNOWN';
-            }
-
-            // Sarı aralığı
-            if (hue >= 42 && hue <= 70) {
-                return (s > 0.35 && v > 0.45) ? 'Y' : 'W';
-            }
-
-            // Turuncu aralığı
+            if (hue >= 180 && hue <= 255) return (s > 0.30 && v > 0.25) ? 'B' : 'UNKNOWN';
+            if (hue >= 42 && hue <= 70) return (s > 0.35 && v > 0.45) ? 'Y' : 'W';
             if (hue > 14 && hue < 42) return 'O';
-
-            // Kırmızı aralığı
             if (hue <= 14 || hue >= 335) return 'R';
-
-            // Yeşil aralığı
             if (hue >= 72 && hue <= 170) return 'G';
 
             return 'UNKNOWN';
@@ -1311,9 +1552,6 @@
             showVerificationModal(grid);
         }
 
-        // ==========================================
-        // DOĞRULAMA MODAL VE ONAY İŞLEMLERİ
-        // ==========================================
         function showVerificationModal(grid) {
             isCapturing = true;
             const modal = document.getElementById('verification-modal');
@@ -1346,11 +1584,8 @@
             ['W','R','G','Y','O','B'].forEach(k => {
                 const btn = document.getElementById(`v-color-${k}`);
                 if (btn) {
-                    if (k === colKey) {
-                        btn.classList.add('ring-2', 'ring-blue-500', 'scale-110');
-                    } else {
-                        btn.classList.remove('ring-2', 'ring-blue-500', 'scale-110');
-                    }
+                    if (k === colKey) btn.classList.add('ring-2', 'ring-blue-500', 'scale-110');
+                    else btn.classList.remove('ring-2', 'ring-blue-500', 'scale-110');
                 }
             });
         }
@@ -1373,16 +1608,17 @@
             modal.classList.add('hidden');
             isCapturing = false;
 
-            showToast(`${scanFaceOrder[currentScanFaceIndex].name} başarıyla kaydedildi!`, 'success');
+            showToast(`${scanFaceOrder[currentScanFaceIndex].name} kaydedildi!`, 'success');
 
             if (currentScanFaceIndex < scanFaceOrder.length - 1) {
                 currentScanFaceIndex++;
                 updateScanStepUI();
+                updateGuideCubeOrientation(currentScanFaceIndex, true);
             } else {
                 document.getElementById('finish-scan-btn').disabled = false;
                 document.getElementById('finish-scan-btn').classList.add('animate-pulse');
                 showToast("Tüm yüzeyler tamamlandı! Çözüme aktarabilirsiniz.", 'success');
-                speakVoice("Harika! Tüm 6 yüzey tarandı. 3D modele aktar butonuna basın.");
+                speakVoice("Harika! Tüm yüzeyler başarıyla tarandı. 3D modele aktar butonuna basın.");
             }
 
             renderScanProgressList();
@@ -1390,11 +1626,9 @@
 
         function updateScanStepUI() {
             const badge = document.getElementById('scan-step-badge');
-            const hint = document.getElementById('scan-orientation-hint');
             const target = scanFaceOrder[currentScanFaceIndex];
             badge.textContent = `Adım ${currentScanFaceIndex + 1}/6: ${target.name}`;
-            hint.textContent = `İpucu: ${target.hint}`;
-            speakVoice(`Sıradaki yüzey: ${target.name}. ${target.hint}`);
+            speakVoice(target.voiceInstruction);
         }
 
         function renderScanProgressList() {
@@ -1407,17 +1641,17 @@
                 const isCurrent = idx === currentScanFaceIndex;
 
                 const row = document.createElement('div');
-                row.className = `p-2.5 rounded-xl border flex items-center justify-between transition ${
+                row.className = `p-2 rounded-xl border flex items-center justify-between transition ${
                     isDone ? 'bg-emerald-950/40 border-emerald-500/40 text-emerald-300' :
                     isCurrent ? 'bg-blue-900/40 border-blue-500/50 text-blue-200 ring-1 ring-blue-500/40' : 'bg-slate-900/60 border-slate-800 text-slate-400'
                 }`;
 
                 row.innerHTML = `
-                    <div class="flex items-center space-x-2.5">
-                        <span class="w-3.5 h-3.5 rounded-md ${CUBE_COLORS[face.expectedColor]?.css || 'bg-slate-700'} border border-black/30"></span>
+                    <div class="flex items-center space-x-2">
+                        <span class="w-3 h-3 rounded-md ${CUBE_COLORS[face.expectedColor]?.css || 'bg-slate-700'} border border-black/30"></span>
                         <span class="font-semibold text-xs">${face.name}</span>
                     </div>
-                    <span class="text-[11px] font-bold">
+                    <span class="text-[10px] font-bold">
                         ${isDone ? '<i class="fa-solid fa-check text-emerald-400"></i> Kaydedildi' : (isCurrent ? '<i class="fa-solid fa-spinner animate-spin text-blue-400"></i> Bekleniyor' : 'Sırada')}
                     </span>
                 `;
@@ -1438,6 +1672,7 @@
             document.getElementById('finish-scan-btn').disabled = false;
             document.getElementById('finish-scan-btn').classList.add('animate-pulse');
             renderScanProgressList();
+            updateGuideCubeOrientation(5, true);
             showToast('Örnek demo verisi başarıyla yüklendi!', 'success');
         }
 
@@ -1447,6 +1682,7 @@
             document.getElementById('finish-scan-btn').disabled = true;
             document.getElementById('finish-scan-btn').classList.remove('animate-pulse');
             updateScanStepUI();
+            updateGuideCubeOrientation(0, true);
             renderScanProgressList();
             showToast('Tarama sihirbazı sıfırlandı.', 'info');
         }
@@ -1467,7 +1703,7 @@
         }
 
         // ==========================================
-        // GERÇEK RUBİK ÇÖZÜCÜ VE ANİMASYON YÖNETİMİ
+        // GERÇEK RUBİK ÇÖZÜCÜ & HAMLE REHBERİ
         // ==========================================
         let generatedSolutionMoves = [];
         let currentSolutionStep = 0;
@@ -1477,10 +1713,8 @@
             const isValid = validateCurrentCube();
             if (!isValid) return;
 
-            // Çözüm öncesi küpün orijinal halini yedekle
             initialSolveCubeState = JSON.parse(JSON.stringify(cubeState));
 
-            // Küp zaten çözülmüş durumda mı?
             const isSolved = ['U','R','F','D','L','B'].every(f => 
                 cubeState[f].every(color => color === cubeState[f][4])
             );
@@ -1495,7 +1729,6 @@
                 return;
             }
 
-            // Gerçek solver için 54 karakterlik durum dizesi oluştur (Front, Right, Up, Down, Left, Back)
             const centerFaceMap = {
                 [cubeState['F'][4]]: 'f',
                 [cubeState['R'][4]]: 'r',
@@ -1522,7 +1755,6 @@
                     }
                 }
 
-                // Kütüphane yüklenememişse veya karıştırma geçmişi varsa yedek çözüm
                 if (moves.length === 0 && scrambleHistory.length > 0) {
                     moves = scrambleHistory.slice().reverse().map(getInverseMove);
                 }
@@ -1547,7 +1779,7 @@
                     showToast(`${generatedSolutionMoves.length} hamlelik ters simülasyon çözümü yüklendi.`, 'info');
                 } else {
                     showToast('Bu küp konfigürasyonu çözülemez (Parite hatası veya yanlış boyama).', 'warning');
-                    speakVoice("Bu küp kombinasyonu fiziksel olarak çözülemez bir durumda. Lütfen kareleri kontrol ediniz.");
+                    speakVoice("Bu küp kombinasyonu çözülemez bir durumda. Lütfen kareleri kontrol ediniz.");
                 }
             }
         }
@@ -1594,17 +1826,17 @@
         function getMoveTurkishDesc(move) {
             const m = move.trim();
             const faceMap = {
-                'U': 'Üst Yüzeyi',
-                'D': 'Alt Yüzeyi',
-                'R': 'Sağ Yüzeyi',
-                'L': 'Sol Yüzeyi',
-                'F': 'Ön Yüzeyi',
-                'B': 'Arka Yüzeyi'
+                'U': 'Üst yüzeyi',
+                'D': 'Alt yüzeyi',
+                'R': 'Sağ yüzeyi',
+                'L': 'Sol yüzeyi',
+                'F': 'Ön yüzeyi',
+                'B': 'Arka yüzeyi'
             };
             const f = faceMap[m[0]] || m[0];
-            if (m.endsWith("2")) return `${f} 180° (İki Tur) Çevirin`;
-            if (m.endsWith("'")) return `${f} Saatin Tersi Yönünde Çevirin`;
-            return `${f} Saat Yönünde Çevirin`;
+            if (m.endsWith("2")) return `${f} yarım tur (180 derece) çevirin.`;
+            if (m.endsWith("'")) return `${f} saatin tersine çevirin.`;
+            return `${f} saat yönünde çevirin.`;
         }
 
         function updateStepCard() {
@@ -1637,7 +1869,7 @@
             const move = generatedSolutionMoves[currentSolutionStep];
             const speed = parseInt(document.getElementById('speed-slider').value) || 450;
 
-            speakVoice(move);
+            speakVoice(getMoveTurkishDesc(move));
             animateMove3D(move, speed * 0.75, () => {
                 currentSolutionStep++;
                 renderSolutionList();
@@ -1712,6 +1944,8 @@
             const moveDuration = Math.max(150, speed * 0.7);
             const delayAfter = Math.max(80, speed * 0.3);
 
+            speakVoice(getMoveTurkishDesc(move));
+
             animateMove3D(move, moveDuration, () => {
                 currentSolutionStep++;
                 renderSolutionList();
@@ -1744,6 +1978,8 @@
                 document.getElementById('section-scan').classList.remove('hidden');
                 document.getElementById('tab-scan-btn').className = "px-3 sm:px-4 py-1.5 rounded-lg transition-all text-white bg-blue-600 shadow-md flex items-center space-x-2";
                 startCamera();
+                onWindowResize();
+                updateGuideCubeOrientation(currentScanFaceIndex, false);
             } else if (tabName === 'solve') {
                 stopCamera();
                 document.getElementById('section-solve').classList.remove('hidden');
@@ -1775,6 +2011,7 @@
             render2DNet();
             renderScanProgressList();
             setSelectedColor('W');
+            initNeuralTurkishTTS();
         });
     </script>
 </body>
